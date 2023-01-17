@@ -3,7 +3,12 @@
     <!-- inner piece of app -->
     <main>
       <div class="search-box">
-        <input type="text" class="search-bar" placeholder="Search.." />
+        <input type="text" 
+        class="search-bar" 
+        placeholder="Search.."
+        v-model="query"
+        @keypress="fetchWeather"
+        />
       </div>
 
       <div class="weather-wrap">
@@ -26,9 +31,15 @@ export default {
   name: 'App',
   data() {
     return {
-      api_key: 'a511288c93ca905f4ba9b1a0eda9231d'
+      api_key: 'a511288c93ca905f4ba9b1a0eda9231d',
+      url_base: "https://api.openweathermap.org/data/2.5/",
+      query:'',
+      weather:{}
     }
-  }
+  },
+  // methods {
+
+  // }
 }
 </script>
 
@@ -40,7 +51,7 @@ export default {
 }
 
 body {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
 #app {
@@ -85,4 +96,49 @@ main {
   background-color: rgba(255,255,255,0.75);
   border-radius: 16px 0px 16px 0px;
 }
+
+.location-box .location {
+  color: #fff;
+  font-size: 32px;
+  font-weight: 500;
+  text-align: center;
+  text-shadow: 1px 3px rgba(0,0,0,0.25);
+}
+
+.location-box .date {
+  color: #fff;
+  font-size: 20px;
+  font-weight: 300;
+  font-style: italic;
+  text-align: center;
+  /* text-shadow: 1px 3px rgba(0,0,0,0.25); */
+}
+
+.weather-box {
+  text-align: center;
+}
+
+.weather-box .temp {
+  display: inline-block;
+  padding: 10px 25px;
+  color: #fff;  
+  font-size: 102px;
+  font-weight: 900;
+
+  text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
+  background-color: rgba(255,255,255,0.25);
+  border-radius: 16px;
+  margin: 30px 0px;
+
+  box-shadow: 3px 6px rgba(0, 0, 0, 0.25);
+}
+
+.weather-box .weather {
+  color: #fff;
+  font-size: 48px;
+  font-weight: 500;
+  font-style: italic;
+  text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
+}
+
 </style>
