@@ -4,16 +4,15 @@
     <main>
       <div class="search-box">
         <input type="text" 
-        class="search-bar" 
-        placeholder="Search.."
-        v-model="query"
-        @keypress="fetchWeather"
-        />
+        class="search-bar"
+         placeholder="Search.." 
+         v-model="query" 
+         @keypress="fetchWeather" />
       </div>
 
-      <div class="weather-wrap">
+      <div class="weather-wrap" v-if="(typeof weather.main != 'undefined')">
         <div class="location-box">
-          <div class="location">Mesa, AZ</div>
+          <div class="location">{{ weather.name }}, {{ weather.sys.country }}</div>
           <div class="date">Monday 16 January 2020</div>
         </div>
         <div class="weather-box">
@@ -26,6 +25,8 @@
 </template>
 
 <script>
+// import e from 'express';
+
 
 export default {
   name: 'App',
@@ -33,13 +34,23 @@ export default {
     return {
       api_key: 'a511288c93ca905f4ba9b1a0eda9231d',
       url_base: "https://api.openweathermap.org/data/2.5/",
-      query:'',
-      weather:{}
+      query: '',
+      weather: {}
     }
   },
-  // methods {
-
-  // }
+  methods: {
+    fetchWeather(e) {
+      if (e.key == "Enter") {
+        fetch(`${this.api_base}weather?q=${this.query}&units=imperial&APPID=${this.api_key}`)
+          .then(res => {
+            return res.json();
+          }).then(this.setResults);
+      }
+    },
+    setResults(results) {
+      this.weather = results;
+    }
+  }
 }
 </script>
 
@@ -51,7 +62,7 @@ export default {
 }
 
 body {
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
 
 #app {
@@ -86,14 +97,14 @@ main {
   background: none;
 
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255, 255, 255, 0.5);
   border-radius: 0px 16px 0px 16px;
   transition: 0.4s;
 }
 
 .search-box .search-bar:focus {
   box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.25);
-  background-color: rgba(255,255,255,0.75);
+  background-color: rgba(255, 255, 255, 0.75);
   border-radius: 16px 0px 16px 0px;
 }
 
@@ -102,7 +113,7 @@ main {
   font-size: 32px;
   font-weight: 500;
   text-align: center;
-  text-shadow: 1px 3px rgba(0,0,0,0.25);
+  text-shadow: 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 .location-box .date {
@@ -121,12 +132,12 @@ main {
 .weather-box .temp {
   display: inline-block;
   padding: 10px 25px;
-  color: #fff;  
+  color: #fff;
   font-size: 102px;
   font-weight: 900;
 
   text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
-  background-color: rgba(255,255,255,0.25);
+  background-color: rgba(255, 255, 255, 0.25);
   border-radius: 16px;
   margin: 30px 0px;
 
@@ -140,5 +151,4 @@ main {
   font-style: italic;
   text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
 }
-
 </style>
