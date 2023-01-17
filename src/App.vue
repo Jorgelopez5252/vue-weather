@@ -6,8 +6,11 @@
         <input type="text" 
         class="search-bar"
          placeholder="Search.." 
-         v-model="query" 
-         @keypress="fetchWeather" />
+         ref="anyName"
+         v-model="query"
+         @keypress="fetchWeather" 
+         @submit="submitForm"
+         />
       </div>
 
       <div class="weather-wrap" v-if="(typeof weather.main != 'undefined')">
@@ -61,7 +64,11 @@ export default {
       let year = d.getFullYear();
 
       return `${day} ${date} ${month} ${year}`;
-    }
+    },
+    submitForm(){
+         // Your form submission
+         this.$refs.anyName.reset(); // This will clear that form
+      }
   }
 }
 </script>
