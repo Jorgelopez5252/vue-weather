@@ -5,6 +5,17 @@
       <div class="search-box">
         <input type="text" class="search-bar" placeholder="Search.." />
       </div>
+
+      <div class="weather-wrap">
+        <div class="location-box">
+          <div class="location">Mesa, AZ</div>
+          <div class="date">Monday 16 January 2020</div>
+        </div>
+        <div class="weather-box">
+          <div class="temp">9°c</div>
+          <div class="weather">Rain</div>
+        </div>
+      </div>
     </main>
   </div>
 </template>
